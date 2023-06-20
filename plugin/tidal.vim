@@ -421,12 +421,6 @@ function! s:TidalPlayFromCycle(cycle)
 endfunction
 command! -nargs=1 TidalPlayFromCycle call s:TidalPlayFromCycle(<args>)
 
-let i = -10
-while i <= 50
-  execute 'nnoremap <buffer> <localleader>c'.i.' :TidalPlayFromCycle '.i.'<cr>'
-  let i += 1
-endwhile
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setup key bindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -447,3 +441,10 @@ noremap <unique> <script> <silent> <Plug>TidalLineSend :<c-u>call <SID>TidalSend
 noremap <unique> <script> <silent> <Plug>TidalMotionSend <SID>Operator
 noremap <unique> <script> <silent> <Plug>TidalParagraphSend <SID>Operatorip
 noremap <unique> <script> <silent> <Plug>TidalConfig :<c-u>TidalConfig<cr>
+let i = -10
+while i <= 50
+  execute 'nnoremap <buffer> <localleader>c'.i.' :TidalPlayFromCycle '.i.'<cr>'
+  let i += 1
+endwhile
+
+
