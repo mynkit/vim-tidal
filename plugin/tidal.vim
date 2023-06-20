@@ -412,6 +412,21 @@ function! s:TidalGenerateCompletions(path)
   let &l:dictionary .= ',' . l:output_path
 endfunction
 
+function! s:TidalPlayFromCycle(cycle)
+  silent execute "normal! vip:TidalSend\<cr>"
+  silent execute "normal! vip"
+  call s:TidalFlashVisualSelection()
+  call s:TidalRestoreCurPos()
+  execute 'TidalSend1 resetCyclesTo(' . a:cycle . '-0.05)'
+endfunction
+command! -nargs=1 TidalPlayFromCycle call s:TidalPlayFromCycle(<args>)
+
+let i = -10
+while i <= 50
+  execute 'nnoremap <buffer> <localleader>c'.i.' :TidalPlayFromCycle '.i.'<cr>'
+  let i += 1
+endwhile
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setup key bindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
