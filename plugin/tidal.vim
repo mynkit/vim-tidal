@@ -413,6 +413,7 @@ function! s:TidalGenerateCompletions(path)
 endfunction
 
 function! s:TidalPlayFromCycle(cycle)
+  call s:TidalStoreCurPos()
   silent execute "normal! vip:TidalSend\<cr>"
   silent execute "normal! vip"
   call s:TidalFlashVisualSelection()
