@@ -74,7 +74,8 @@ For example, with Plug you need to:
   * Edit your `.vimrc` file and add these lines:
 
 ```vim
-Plug 'tidalcycles/vim-tidal'
+" Plug 'tidalcycles/vim-tidal'
+Plug 'mynkit/vim-tidal', {'branch': 'dev/add-command'}
 ```
 
   * Restart Vim and execute `:PlugInstall` to automatically download and
