@@ -88,6 +88,11 @@ endif
 " Tidal mute toggle (custom)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" ステータス表示（ENTER不要・上書き）
+function! TidalEchoStatus(msg) abort
+  echon a:msg
+endfunction
+
 function! TidalToggle(orbit) abort
   if !exists("b:tidal_muted")
     let b:tidal_muted = {}
@@ -96,12 +101,12 @@ function! TidalToggle(orbit) abort
   if get(b:tidal_muted, a:orbit, 0)
     execute "TidalSend1 unmute " . a:orbit
     let b:tidal_muted[a:orbit] = 0
-    echo "d" . a:orbit . " unmuted"
   else
     execute "TidalSend1 mute " . a:orbit
     let b:tidal_muted[a:orbit] = 1
-    echo "d" . a:orbit . " muted"
   endif
+
+  call TidalEchoStatus("Tidal: " . TidalMuteStatus())
 endfunction
 
 function! TidalUnmuteAll() abort
@@ -117,7 +122,7 @@ function! TidalUnmuteAll() abort
     let i += 1
   endwhile
 
-  echo "All unmuted"
+  call TidalEchoStatus("Tidal: " . TidalMuteStatus())
 endfunction
 
 " キーマップ（テーブル的に管理）
@@ -139,3 +144,24 @@ endfor
 
 " unmuteAll
 nnoremap <buffer> me :call TidalUnmuteAll()<CR>
+
+" 状態文字列生成
+function! TidalMuteStatus() abort
+  if !exists("b:tidal_muted")
+    return ""
+  endif
+
+  let s = ""
+
+  let i = 1
+  while i <= 9
+    if get(b:tidal_muted, i, 0)
+      let s .= "●" . i . " "
+    else
+      let s .= "○" . i . " "
+    endif
+    let i += 1
+  endwhile
+
+  return s
+endfunction
