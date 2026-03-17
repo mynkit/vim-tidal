@@ -83,3 +83,59 @@ if !exists("g:tidal_no_mappings") || !g:tidal_no_mappings
     let i += 1
   endwhile
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tidal mute toggle (custom)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! TidalToggle(orbit) abort
+  if !exists("b:tidal_muted")
+    let b:tidal_muted = {}
+  endif
+
+  if get(b:tidal_muted, a:orbit, 0)
+    execute "TidalSend1 unmute " . a:orbit
+    let b:tidal_muted[a:orbit] = 0
+    echo "d" . a:orbit . " unmuted"
+  else
+    execute "TidalSend1 mute " . a:orbit
+    let b:tidal_muted[a:orbit] = 1
+    echo "d" . a:orbit . " muted"
+  endif
+endfunction
+
+function! TidalUnmuteAll() abort
+  if !exists("b:tidal_muted")
+    let b:tidal_muted = {}
+  endif
+
+  execute "TidalSend1 unmuteAll"
+
+  let i = 1
+  while i <= 9
+    let b:tidal_muted[i] = 0
+    let i += 1
+  endwhile
+
+  echo "All unmuted"
+endfunction
+
+" キーマップ（テーブル的に管理）
+let s:tidal_mute_keys = {
+      \ 'l': 1,
+      \ 'u': 2,
+      \ 'f': 3,
+      \ 'i': 4,
+      \ 'a': 5,
+      \ 'o': 6,
+      \ 'x': 7,
+      \ 'c': 8,
+      \ 'v': 9,
+      \ }
+
+for [key, orbit] in items(s:tidal_mute_keys)
+  execute 'nnoremap <buffer> m' . key . ' :call TidalToggle(' . orbit . ')<CR>'
+endfor
+
+" unmuteAll
+nnoremap <buffer> me :call TidalUnmuteAll()<CR>
