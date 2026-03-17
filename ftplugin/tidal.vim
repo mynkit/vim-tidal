@@ -165,3 +165,18 @@ function! TidalMuteStatus() abort
 
   return s
 endfunction
+
+function! TidalShowStatus() abort
+  if !exists("b:tidal_muted")
+    let b:tidal_muted = {}
+    let i = 1
+    while i <= 9
+      let b:tidal_muted[i] = 0
+      let i += 1
+    endwhile
+  endif
+
+  call TidalEchoStatus("Tidal: " . TidalMuteStatus())
+endfunction
+
+nnoremap <buffer> mq :call TidalShowStatus()<CR>
