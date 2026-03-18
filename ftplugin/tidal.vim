@@ -140,6 +140,7 @@ let s:tidal_mute_keys = {
 
 for [key, orbit] in items(s:tidal_mute_keys)
   execute 'nnoremap <buffer> m' . key . ' :call TidalToggle(' . orbit . ')<CR>'
+  execute 'nnoremap <buffer> m' . orbit . ' :call TidalToggle(' . orbit . ')<CR>'
 endfor
 
 " unmuteAll
