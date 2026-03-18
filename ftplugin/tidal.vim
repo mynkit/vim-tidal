@@ -72,13 +72,13 @@ if !exists("g:tidal_no_mappings") || !g:tidal_no_mappings
 
   imap <buffer> <c-e> <Esc><Plug>TidalParagraphSend<Esc>i<Right>
 
-  nnoremap <buffer> <localleader>h :TidalHush<cr>
-  nnoremap <buffer> <c-h> :TidalHush<cr>
+  nnoremap <buffer> <localleader>h :TidalSend1 hush'<cr>
+  nnoremap <buffer> <c-h> :TidalSend1 hush'<cr>
   nnoremap <buffer> <localleader>b :TidalSend1 showBpm<cr>
   let i = 1
   while i <= 9
-    execute 'nnoremap <buffer> <localleader>'.i.'  :TidalSilence '.i.'<cr>'
-    execute 'nnoremap <buffer> <c-'.i.'>  :TidalSilence '.i.'<cr>'
+    execute 'nnoremap <buffer> <localleader>'.i.' :TidalSend1 silence'' '.i.'<CR>'
+    execute 'nnoremap <buffer> <c-'.i.'> :TidalSend1 silence'' '.i.'<CR>'
     execute 'nnoremap <buffer> <localleader>s'.i.' :TidalPlay '.i.'<cr>'
     let i += 1
   endwhile
