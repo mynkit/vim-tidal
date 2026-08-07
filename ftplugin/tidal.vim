@@ -59,6 +59,7 @@ if !exists("g:tidal_no_mappings") || !g:tidal_no_mappings
   if !hasmapto('<Plug>TidalRegionSend', 'x')
     xmap <buffer> <localleader>s  <Plug>TidalRegionSend
     xmap <buffer> <c-e> <Plug>TidalRegionSend
+    xmap <buffer> <D-CR> <Plug>TidalRegionSend
   endif
 
   if !hasmapto('<Plug>TidalLineSend', 'n')
@@ -68,9 +69,11 @@ if !exists("g:tidal_no_mappings") || !g:tidal_no_mappings
   if !hasmapto('<Plug>TidalParagraphSend', 'n')
     nmap <buffer> <localleader>ss <Plug>TidalParagraphSend
     nmap <buffer> <c-e> <Plug>TidalParagraphSend
+    nmap <buffer> <D-CR> <Plug>TidalParagraphSend
   endif
 
   imap <buffer> <c-e> <Esc><Plug>TidalParagraphSend<Esc>i<Right>
+  imap <buffer> <D-CR> <Esc><Plug>TidalParagraphSend<Esc>i<Right>
 
   nnoremap <buffer> <localleader>h :TidalSend1 hush'<cr>
   nnoremap <buffer> <c-h> :TidalSend1 hush'<cr>
